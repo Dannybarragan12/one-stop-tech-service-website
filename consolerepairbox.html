@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Console Repair Estimate</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .estimate-box {
+      background-color: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.25rem;
+      padding: 1rem;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 30%;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-900 leading-normal">
+  <header class="bg-gray-900 text-white py-6">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <a href="/" class="text-3xl font-bold">Game Console Repair</a>
+    </div>
+  </header>
+
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-8 text-center">Get an Estimate</h2>
+      <div class="estimate-box">
+        <form>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="console-brand">
+              Console Brand
+            </label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="console-brand">
+              <option value="">Select Console Brand</option>
+              <option value="sony">Sony</option>
+              <option value="microsoft">Microsoft</option>
+              <option value="nintendo">Nintendo</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="console-model">
+              Console Model
+            </label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="console-model">
+              <option value="">Select Console Model</option>
+              <optgroup label="Sony">
+                <option value="ps5">PlayStation 5</option>
+                <option value="ps4-pro">PlayStation 4 Pro</option>
+                <option value="ps4">PlayStation 4</option>
+                <option value="ps3">PlayStation 3</option>
+                <option value="ps-vita">PlayStation Vita</option>
+              </optgroup>
+              <optgroup label="Microsoft">
+                <option value="xbox-series-x">Xbox Series X</option>
+                <option value="xbox-one-x">Xbox One X</option>
+                <option value="xbox-one-s">Xbox One S</option>
+                <option value="xbox-one">Xbox One</option>
+                <option value="xbox-360">Xbox 360</option>
+              </optgroup>
+              <optgroup label="Nintendo">
+                <option value="switch">Nintendo Switch</option>
+                <option value="switch-lite">Nintendo Switch Lite</option>
+                <option value="wii-u">Wii U</option>
+                <option value="wii">Wii</option>
+                <option value="3ds">Nintendo 3DS</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="problem-type">
+              Problem Type
+            </label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="problem-type">
+              <option value="">Select Problem Type</option>
+              <option value="not-turning-on">Not Turning On</option>
+              <option value="overheating">Overheating</option>
+              <option value="disc-error">Disc Error</option>
+              <option value="hdmi-issue">HDMI Issue</option>
+              <option value="controller-issue">Controller Issue</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="mb-4" id="other-problem-container" style="display: none;">
+            <label class="block text-gray-700 font-bold mb-2" for="other-problem">
+              Other Problem
+            </label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="other-problem" rows="3" placeholder="Describe the problem with your console"></textarea>
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="get-estimate-btn">
+            Get an Estimate
+          </button>
+        </form>
+        <div id="estimate-result" class="mt-8 text-center" style="display: none;">
+          <h3 class="text-2xl font-bold mb-4">Estimated Cost</h3>
+          <p class="text-4xl font-bold text-green-600" id="estimate-cost">$0</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <p>&copy; 2023 Game Console Repair. All rights reserved.</p>
+      <button id="contact-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contact Us</button>
+    </div>
+  </footer>
+
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
+      <form>
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+          <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+          <input type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+        <div class="mb-4">
+          <label for="message" class="block text-gray-700 font-bold mb-2">Message</label>
+          <textarea id="message" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const problemTypeSelect = document.getElementById('problem-type');
+    const otherProblemContainer = document.getElementById('other-problem-container');
+    const getEstimateBtn = document.getElementById('get-estimate-btn');
+    const estimateResult = document.getElementById('estimate-result');
+    const estimateCost = document.getElementById('estimate-cost');
+
+    const modal = document.getElementById("contact-modal");
+    const btn = document.getElementById("contact-btn");
+    const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    problemTypeSelect.addEventListener('change', function() {
+      if (this.value === 'other') {
+        otherProblemContainer.style.display = 'block';
+      } else {
+        otherProblemContainer.style.display = 'none';
+      }
+    });
+
+    getEstimateBtn.addEventListener('click', function() {
+      // Replace this with your actual cost estimation logic
+      const estimatedCost = Math.floor(Math.random() * 150) + 30; // Slightly cheaper prices
+      estimateCost.textContent = `$${estimatedCost}`;
+      estimateResult.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

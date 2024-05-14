@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cell Phone Repair Estimate</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .estimate-card {
+      background-color: #f7fafc;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .estimate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-900 leading-normal">
+  <header class="bg-gray-900 text-white py-6">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <a href="/" class="text-3xl font-bold">One Stop Tech Service</a>
+      <nav>
+        <a href="index.html" class="mx-4 hover:text-gray-400">Home</a>
+        <a href="/services.html" class="mx-4 hover:text-gray-400">Services</a>
+        <a href="index.html#about" class="mx-4 hover:text-gray-400">About Us</a>
+        <a href="contactus.html" class="mx-4 hover:text-gray-400">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="estimate py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-8 text-center">Cell Phone Repair Estimate</h2>
+      <div class="estimate-card">
+        <h3 class="text-2xl font-bold mb-4">Select Brand</h3>
+        <select id="brand" class="w-full mb-4 p-2 border border-gray-300 rounded">
+          <option value="">Select Brand</option>
+          <option value="apple">Apple</option>
+          <option value="samsung">Samsung</option>
+          <option value="google">Google</option>
+          <option value="other">Other</option>
+        </select>
+
+        <h3 class="text-2xl font-bold mb-4">Select Model</h3>
+        <input type="text" id="model" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter Model">
+
+        <h3 class="text-2xl font-bold mb-4">Select Issue</h3>
+        <select id="issue" class="w-full mb-4 p-2 border border-gray-300 rounded">
+          <option value="">Select Issue</option>
+          <option value="screen">Cracked Screen</option>
+          <option value="battery">Battery Replacement</option>
+          <option value="charging">Charging Port</option>
+          <option value="other">Other</option>
+        </select>
+
+        <button id="estimateBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Get Estimate
+        </button>
+
+        <div id="estimateResult" class="mt-8 p-4 bg-yellow-100 rounded hidden">
+          <p class="text-lg font-bold">Estimated Cost:</p>
+          <p id="estimateCost" class="text-2xl font-bold"></p>
+          <p class="text-sm text-gray-600">Note: This is a starting cost, and it can change based on the specific repair required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <p>&copy; 2023 One Stop Tech Service. All rights reserved.</p>
+      <nav>
+        <a href="#" class="mx-4 hover:text-gray-400">Privacy Policy</a>
+        <a href="#" class="mx-4 hover:text-gray-400">Terms of Service</a>
+        <a href="#" class="mx-4 hover:text-gray-400">Email: Dannybarragan12@yahoo.com</a>
+        <a href="#" class="mx-4 hover:text-gray-400">Phone: (407)-595-9531</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const estimateBtn = document.getElementById('estimateBtn');
+    const estimateResult = document.getElementById('estimateResult');
+    const estimateCost = document.getElementById('estimateCost');
+
+    const repairPrices = {
+      apple: {
+        screen: 99,
+        battery: 79,
+        charging: 59,
+        other: 129
+      },
+      samsung: {
+        screen: 89,
+        battery: 69,
+        charging: 49,
+        other: 119
+      },
+      google: {
+        screen: 79,
+        battery: 59,
+        charging: 39,
+        other: 109
+      },
+      other: {
+        screen: 109,
+        battery: 89,
+        charging: 69,
+        other: 149
+      }
+    };
+
+    estimateBtn.addEventListener('click', () => {
+      const brand = document.getElementById('brand').value;
+      const model = document.getElementById('model').value;
+      const issue = document.getElementById('issue').value;
+
+      if (!brand || !model || !issue) {
+        alert('Please select a brand, model, and issue.');
+        return;
+      }
+
+      const brandPrices = repairPrices[brand] || repairPrices.other;
+      const cost = brandPrices[issue];
+
+      estimateCost.textContent = `$${cost}`;
+      estimateResult.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
