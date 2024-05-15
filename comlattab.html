@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Repair Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .hero {
+      background-image: url('IMG/tech.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 500px;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-900 leading-normal">
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold">Tech Repair</a>
+      <nav>
+        <a href="#" class="mx-4 hover:text-gray-500">Services</a>
+        <a href="#" class="mx-4 hover:text-gray-500">About</a>
+        <a href="#" class="mx-4 hover:text-gray-500">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero flex items-center justify-center">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold text-white mb-4">Expert Tech Repair Services</h1>
+      <p class="text-xl text-white mb-8">Get your devices repaired by our certified technicians.</p>
+      <a href="#estimate" class="bg-white text-gray-800 py-3 px-6 rounded-full shadow-md hover:bg-gray-100">Get an Estimate</a>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Our Repair Process</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-md p-8 flex flex-col items-center">
+          <div class="w-16 h-16 mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+            <span class="text-gray-500 text-2xl">&#x1F50D;</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Diagnostic</h3>
+          <p class="text-gray-700 text-center">Our technicians will thoroughly diagnose the issue with your device.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-8 flex flex-col items-center">
+          <div class="w-16 h-16 mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+            <span class="text-gray-500 text-2xl">&#x1F527;</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Repair</h3>
+          <p class="text-gray-700 text-center">We use genuine parts and follow manufacturer guidelines to repair your device.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-8 flex flex-col items-center">
+          <div class="w-16 h-16 mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+            <span class="text-gray-500 text-2xl">&#x2705;</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Quality Check</h3>
+          <p class="text-gray-700 text-center">Before returning your device, we perform thorough quality checks to ensure optimal performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="estimate" class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Get a Repair Estimate</h2>
+      <div class="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
+        <form>
+          <div class="mb-4">
+            <label for="deviceType" class="block text-gray-700 font-bold mb-2">Device Type</label>
+            <select id="deviceType" class="w-full border border-gray-400 rounded-md py-2 px-3">
+              <option value="">Select Device Type</option>
+              <option value="laptop">Laptop</option>
+              <option value="desktop">Desktop</option>
+              <option value="tablet">Tablet</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="brand" class="block text-gray-700 font-bold mb-2">Brand</label>
+            <input type="text" id="brand" class="w-full border border-gray-400 rounded-md py-2 px-3" placeholder="Enter Brand">
+          </div>
+          <div class="mb-4">
+            <label for="model" class="block text-gray-700 font-bold mb-2">Model</label>
+            <input type="text" id="model" class="w-full border border-gray-400 rounded-md py-2 px-3" placeholder="Enter Model">
+          </div>
+          <div class="mb-4">
+            <label for="issue" class="block text-gray-700 font-bold mb-2">Issue Description</label>
+            <textarea id="issue" class="w-full border border-gray-400 rounded-md py-2 px-3" rows="3" placeholder="Describe the issue"></textarea>
+          </div>
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Get Estimate</button>
+        </form>
+      </div>
+      <div id="estimateResult" class="mt-8 hidden">
+        <h3 class="text-2xl font-bold mb-4">Estimated Cost</h3>
+        <p id="estimatedCost" class="text-lg"></p>
+        <p id="repairDetails" class="text-gray-700"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <p>&copy; 2023 Tech Repair. All rights reserved.</p>
+      <nav>
+        <a href="#" class="mx-4 hover:text-gray-400">Privacy Policy</a>
+        <a href="#" class="mx-4 hover:text-gray-400">Terms of Service</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.querySelector('form');
+    const estimateResult = document.getElementById('estimateResult');
+    const estimatedCost = document.getElementById('estimatedCost');
+    const repairDetails = document.getElementById('repairDetails');
+
+    const pricingData = {
+      laptop: {
+        'Dell': { 'Inspiron': 150, 'XPS': 200, 'Latitude': 180 },
+        'HP': { 'Pavilion': 160, 'Spectre': 220, 'EliteBook': 190 },
+        'Lenovo': { 'ThinkPad': 170, 'IdeaPad': 140, 'Yoga': 180 },
+        'Asus': { 'ZenBook': 190, 'VivoBook': 160, 'ROG': 220 },
+        'Acer': { 'Aspire': 130, 'Predator': 200, 'Swift': 170 },
+        // Add more laptop brands and models as needed
+      },
+      desktop: {
+        'Dell': { 'Inspiron': 180, 'XPS': 220, 'Precision': 250 },
+        'HP': { 'Pavilion': 190, 'OMEN': 240, 'EliteDesk': 210 },
+        'Lenovo': { 'ThinkCentre': 200, 'IdeaCentre': 170, 'Legion': 230 },
+        'Asus': { 'VivoPC': 180, 'ROG': 250, 'ProArt': 220 },
+        'Acer': { 'Aspire': 160, 'Predator': 230, 'Veriton': 190 },
+        // Add more desktop brands and models as needed
+      },
+      tablet: {
+        'Apple': { 'iPad Pro': 300, 'iPad Air': 250, 'iPad': 200 },
+        'Samsung': { 'Galaxy Tab S7': 280, 'Galaxy Tab A7': 180, 'Galaxy Tab S6': 260 },
+        'Microsoft': { 'Surface Pro': 320, 'Surface Go': 220, 'Surface Book': 350 },
+        'Lenovo': { 'Tab P11 Pro': 240, 'Tab M10': 160, 'Yoga Tab': 200 },
+        'Huawei': { 'MatePad Pro': 280, 'MediaPad M5': 190, 'MediaPad T5': 150 },
+        // Add more tablet brands and models as needed
+      }
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const deviceType = document.getElementById('deviceType').value;
+      const brand = document.getElementById('brand').value.toLowerCase();
+      const model = document.getElementById('model').value.toLowerCase();
+      const issue = document.getElementById('issue').value;
+
+      const brandData = pricingData[deviceType][brand];
+      let cost = 0;
+
+      if (brandData) {
+        const modelPrice = brandData[model];
+        if (modelPrice) {
+          cost = modelPrice;
+        } else {
+          cost = Math.min(...Object.values(brandData)) + 20; // Estimate for unknown model
+        }
+      } else {
+        cost = 100; // Default estimate for unknown brand
+      }
+
+      const details = `Repair for ${brand} ${model} ${deviceType} with "${issue}" issue.`;
+
+      estimatedCost.textContent = `$${cost}`;
+      repairDetails.textContent = details;
+      estimateResult.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
