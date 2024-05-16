@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Stop Tech Service - TV Selection</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="font-sans antialiased text-gray-900 leading-normal">
+  <section class="tv-selection py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-8 text-center">Select Your TV</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">TV Size</h3>
+          <select id="tvSize" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Select TV Size</option>
+            <option value="32">32 inches</option>
+            <option value="40">40 inches</option>
+            <option value="50">50 inches</option>
+            <option value="60">60 inches</option>
+            <option value="70">70 inches</option>
+            <option value="80">80 inches</option>
+          </select>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">TV Brand</h3>
+          <select class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Select TV Brand</option>
+            <option value="samsung">Samsung</option>
+            <option value="lg">LG</option>
+            <option value="sony">Sony</option>
+            <option value="vizio">Vizio</option>
+            <option value="tcl">TCL</option>
+          </select>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">TV Model</h3>
+          <input type="text" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter TV Model">
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">TV Mount</h3>
+          <select id="tvMount" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Select TV Mount</option>
+            <option value="20">Basic Mount ($20)</option>
+            <option value="40">Tilting Mount ($40)</option>
+            <option value="60">Full Motion Mount ($60)</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-8">
+        <h3 class="text-2xl font-bold mb-4">Total Price</h3>
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <p id="totalPrice" class="text-3xl font-bold">$0</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const tvSizeSelect = document.getElementById('tvSize');
+    const tvMountSelect = document.getElementById('tvMount');
+    const totalPriceElement = document.getElementById('totalPrice');
+
+    const pricingData = {
+      tvSizes: {
+        '32': 50,
+        '40': 70,
+        '50': 90,
+        '60': 120,
+        '70': 150,
+        '80': 180
+      },
+      tvMounts: {
+        '20': 20,
+        '40': 40,
+        '60': 60
+      }
+    };
+
+    function updateTotalPrice() {
+      const selectedSize = tvSizeSelect.value;
+      const selectedMount = tvMountSelect.value;
+      const tvPrice = pricingData.tvSizes[selectedSize] || 0;
+      const mountPrice = pricingData.tvMounts[selectedMount] || 0;
+      const totalPrice = tvPrice + mountPrice;
+      totalPriceElement.textContent = `$${totalPrice}`;
+    }
+
+    tvSizeSelect.addEventListener('change', updateTotalPrice);
+    tvMountSelect.addEventListener('change', updateTotalPrice);
+  </script>
+</body>
+</html>
